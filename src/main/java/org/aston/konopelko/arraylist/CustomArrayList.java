@@ -1,6 +1,6 @@
 package org.aston.konopelko.arraylist;
 
-public interface EntityArrayList<E> extends Iterable<E>{
+public interface CustomArrayList<E> {
 
     boolean add(E e);
 
@@ -12,4 +12,5 @@ public interface EntityArrayList<E> extends Iterable<E>{
 
     void sort();
 
+    int length();
 }
