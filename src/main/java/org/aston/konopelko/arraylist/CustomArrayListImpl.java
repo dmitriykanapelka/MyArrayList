@@ -3,19 +3,45 @@ package org.aston.konopelko.arraylist;
 
 import java.lang.reflect.Array;
 
+/**
+ * Класс CustomArrayListImpl представляет собой реализацию динамического массива.
+ * CustomArrayListImpl позволяет добавлять, получать, удалять и сортировать элементы, как и в обычному массиву.
+ */
+
 public class CustomArrayListImpl<E extends Comparable<E>> implements CustomArrayList<E> {
 
+    /**
+     * Изначальный размер списка.
+     */
     private static final int DEFAULT_CAPACITY = 10;
+
+    /**
+     * Массив, содержащий элементы типа E.
+     */
     private E[] values;
+
+    /**
+     * Экземпляр класса.
+     */
     private final Class<E> clazz;
+
+    /**
+     * Кол-во элементов, хранящихся в списке.
+     */
     private int size;
 
+    /**
+     * Пустой CustomArrayListImpl с изначальным размером списка.
+     */
     public CustomArrayListImpl(Class<E> clazz) {
         this.clazz = clazz;
         this.size = 0;
         values = (E[]) Array.newInstance(clazz, DEFAULT_CAPACITY);
     }
 
+    /**
+     * Проверка CustomArrayListImpl.
+     */
     public CustomArrayListImpl(Class<E> clazz, int capacity) {
         this.clazz = clazz;
         this.size = 0;
@@ -25,6 +51,9 @@ public class CustomArrayListImpl<E extends Comparable<E>> implements CustomArray
         values = (E[]) Array.newInstance(clazz, capacity);
     }
 
+    /**
+     * Добавляет нужный элемент по нужному индексу, со сдвигом всех последующих элементов в правую сторону.
+     */
     @Override
     public boolean add(E e) {
         try {
@@ -45,11 +74,17 @@ public class CustomArrayListImpl<E extends Comparable<E>> implements CustomArray
         return false;
     }
 
+    /**
+     * Возвращает нужный элемент по нужному индексу.
+     */
     @Override
     public E get(int index) {
         return (E) values[index];
     }
 
+    /**
+     * Удаляет нужный элемент по нужному индексу, со сдвигом всех элементов в левую сторону.
+     */
     @Override
     public void delete(int index) {
         try {
@@ -63,23 +98,34 @@ public class CustomArrayListImpl<E extends Comparable<E>> implements CustomArray
         }
     }
 
+    /**
+     * Удаляет все элементы.
+     */
     @Override
     public void clean() {
         values = (E[]) Array.newInstance(clazz, values.length);
     }
 
+    /**
+     * Сортирует все элементы из нашего списка.
+     */
     @Override
     public void sort() {
         int from = 0;
         int to = size - 1;
         quickSort(values, from, to);
     }
-
+    /**
+     * Возвращает кол-во элементов.
+     */
     @Override
     public int length() {
         return size;
     }
 
+    /**
+     * Сортирует все элементы из нашего списка по принципу алгоритма сортировки QuickSort.
+     */
     private void quickSort(E[] array, int from, int to) {
         if (from < to) {
             int divideIndex = partition(array, from, to);
